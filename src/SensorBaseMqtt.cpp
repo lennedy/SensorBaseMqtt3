@@ -2,7 +2,7 @@
 
 void SensorBaseMqtt::init(){
 
-  pinMode(LED_BUILTIN, OUTPUT);
+  led.init(LED_BUILTIN);
  // Optional functionalities of EspMQTTClient
   //client.enableMQTTPersistence();
   client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
@@ -21,24 +21,22 @@ void SensorBaseMqtt::blinkLed(){
   static unsigned long ledWifiPrevTime = 0;
   static unsigned long ledMqttPrevTime = 0;
   unsigned long time_ms = millis();
-  bool ledStatus = false;
   
   if( (WiFi.status() == WL_CONNECTED)){
     if(client.isMqttConnected()){
       if( (time_ms-ledMqttPrevTime) >= LED_INTERVAL_MQTT){
-        ledStatus = !digitalRead(LED_BUILTIN);
-        digitalWrite(LED_BUILTIN, ledStatus);
+        led.blink();
         led2.blink();
         ledMqttPrevTime = time_ms;
       }      
     }
     else{
-      digitalWrite(LED_BUILTIN, LOW); //liga led
+      led.on();
       led2.on();
     }
   }
   else{
-    digitalWrite(LED_BUILTIN, HIGH); //desliga led
+    led.off();
     led2.off();
   }
 }

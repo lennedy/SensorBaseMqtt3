@@ -14,6 +14,7 @@ class SensorBaseMqtt{
   unsigned long dataIntevalPrevTime = 0;      // will store last time data was send
   unsigned long availableIntevalPrevTime = 0; // will store last time "available" was send
   StatusLed led2;
+  StatusLed led;
 
 public:
   void init();
