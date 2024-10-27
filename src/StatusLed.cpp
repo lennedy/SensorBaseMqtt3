@@ -18,6 +18,12 @@ void StatusLed::blink(){
 
 void StatusLed::turnOnOff(bool on){
   if(ledEnabled){
-    digitalWrite(ledPin, on);
+    if(on){ //liga led
+      digitalWrite(ledPin, LOW);
+    }
+    else{ // desliga led
+      digitalWrite(ledPin, HIGH);
+    }
+
   }
 }
