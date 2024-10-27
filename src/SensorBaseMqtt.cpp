@@ -28,15 +28,18 @@ void SensorBaseMqtt::blinkLed(){
       if( (time_ms-ledMqttPrevTime) >= LED_INTERVAL_MQTT){
         ledStatus = !digitalRead(LED_BUILTIN);
         digitalWrite(LED_BUILTIN, ledStatus);
+        led2.blink();
         ledMqttPrevTime = time_ms;
       }      
     }
     else{
       digitalWrite(LED_BUILTIN, LOW); //liga led
+      led2.on();
     }
   }
   else{
     digitalWrite(LED_BUILTIN, HIGH); //desliga led
+    led2.off();
   }
 }
 
@@ -58,4 +61,8 @@ void SensorBaseMqtt::loop(){
   }
 
   blinkLed();
+}
+
+void SensorBaseMqtt::enableSecondLed(byte pin){
+  led2.init(pin);
 }

@@ -2,6 +2,7 @@
 #define SENSOR_BASE_MQTT_H
 
 #include "Connect.h"
+#include "StatusLed.h"
 #include <ArduinoJson.h>
 
 #define DATA_INTERVAL 1000       // Intervalo para adquirir novos dados do sensor (milisegundos).
@@ -12,6 +13,7 @@
 class SensorBaseMqtt{
   unsigned long dataIntevalPrevTime = 0;      // will store last time data was send
   unsigned long availableIntevalPrevTime = 0; // will store last time "available" was send
+  StatusLed led2;
 
 public:
   void init();
@@ -20,6 +22,7 @@ public:
   virtual void metodoPublisher()=0;
 
   void loop();
+  void enableSecondLed(byte pin);
 };
 
 #endif
